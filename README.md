@@ -25,7 +25,7 @@ and [EdgeOfAssembly/wine-tkg-git](https://github.com/EdgeOfAssembly/wine-tkg-git
 - Font license files: `COPYING.arial`, `COPYING.cour`, `COPYING.times`, `COPYING.msyh`
   for Liberation and WenQuanYi font families.
 - **esync** support (eventfd-based synchronization): Enable with `WINEESYNC=1`.
-  See `README.esync` for details.
+  See [`README.esync`](README.esync) for details.
 
 **From wine-tkg-git (build infrastructure):**
 - `wine-tkg/` directory: Complete wine-tkg build system for custom Wine builds.

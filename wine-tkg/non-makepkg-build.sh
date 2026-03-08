@@ -18,8 +18,21 @@ _esyncsrcdir='esync'
 _where="$PWD"
 
 # Source common functions
-source "$_where"/wine-tkg-scripts/prepare.sh
-source "$_where"/wine-tkg-scripts/build.sh
+_prepare_script="$_where/wine-tkg-scripts/prepare.sh"
+_build_script="$_where/wine-tkg-scripts/build.sh"
+
+if [[ ! -f "$_prepare_script" || ! -f "$_build_script" ]]; then
+  error "Required script(s) missing in 'wine-tkg-scripts'. Expected:"
+  error "  $_prepare_script"
+  error "  $_build_script"
+  error "Please ensure these files are available or update non-makepkg-build.sh to not depend on them."
+  exit 1
+fi
+
+# shellcheck source=/dev/null
+source "$_prepare_script"
+# shellcheck source=/dev/null
+source "$_build_script"
 
 srcdir=""
 _DEPSHELPER=${_DEPSHELPER:-0}
@@ -79,12 +92,12 @@ _script_parse_args() {
       -e|--deps32) _DEPSHELPER=1; ACTION="deps32"; shift 1 ;;
       -c|--config)
         if [ -z "$2" ]; then error "No path provided for custom config file!"; exit 1; fi
-        _EXT_CONFIG_PATH="$(readlink -m "$2")"
+        _EXT_CONFIG_PATH="$(readlink -m -- "$2")"
         if [ ! -f "$_EXT_CONFIG_PATH" ]; then
-          echo "User-supplied external config file '${_EXT_CONFIG_PATH}' not found!"
-          exit 0
+          error "User-supplied external config file '${_EXT_CONFIG_PATH}' not found!"
+          exit 1
         fi
-        sed -i -e "s|_EXT_CONFIG_PATH.*|_EXT_CONFIG_PATH=${_EXT_CONFIG_PATH}|" "$_where"/wine-tkg-profiles/advanced-customization.cfg
+        export _EXT_CONFIG_PATH
         shift 1 ;;
       *) _script_usage ;;
     esac
@@ -98,7 +111,7 @@ _script_init() {
   if [ "$_build_in_tmpfs" = "true" ]; then
     rm -rf "$_where"/src
     mkdir -p /tmp/wine-tkg/src
-    ln -s /tmp/wine-tkg/src "$_where"
+    ln -sfn /tmp/wine-tkg/src "$_where"/src
   else
     mkdir -p "$_where"/src
   fi

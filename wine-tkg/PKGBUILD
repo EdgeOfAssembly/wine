@@ -15,8 +15,19 @@ _configure_args=() # additional args to ./configure will be added during prepare
 _makepkg_options=()
 
 # load functions
-source "$_where"/wine-tkg-scripts/prepare.sh
-source "$_where"/wine-tkg-scripts/build.sh
+_prepare_script="$_where"/wine-tkg-scripts/prepare.sh
+_build_script="$_where"/wine-tkg-scripts/build.sh
+
+if [[ -r "$_prepare_script" && -r "$_build_script" ]]; then
+  source "$_prepare_script"
+  source "$_build_script"
+else
+  echo "warning: wine-tkg-scripts not found under \`$_where\`; using no-op helper stubs." >&2
+  _exit_cleanup() { :; }
+  remove_deps() { :; }
+  _init() { :; }
+  _pkgnaming() { :; }
+fi
 
 exit_cleanup() {
   _exit_cleanup
@@ -87,7 +98,7 @@ depends=(
 if [ "$_NOLIB32" = "false" ]; then
   depends+=(
     'lib32-attr'            'lib32-fontconfig'
-    'lib32-lcms2'           'lib32-lcms2'
+    'lib32-lcms2'
     'lib32-libxml2'         'lib32-libxcursor'
     'lib32-libxrandr'       'lib32-libxdamage'
     'lib32-libxi'           'lib32-gettext'

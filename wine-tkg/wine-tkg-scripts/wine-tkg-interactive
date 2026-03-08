@@ -20,6 +20,13 @@ fi
 
 read -rp "Please enter your wine command ( examples: wine \"/path/to/your/app\" ; winecfg ; regedit ): " _wine_tkg_command
 
-# Note: This interactive helper is intended for trusted local use only.
-# It directly evaluates the user-supplied wine command as entered.
-eval "$_wine_tkg_command"
+# Split the entered command into an array of words and exec directly to
+# avoid unintended shell code execution from copy/paste or special characters.
+read -r -a _wine_tkg_args <<< "$_wine_tkg_command"
+
+if [ "${#_wine_tkg_args[@]}" -eq 0 ]; then
+  echo "No command entered. Exiting." >&2
+  exit 1
+fi
+
+exec "${_wine_tkg_args[@]}"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 files=$1
 prefix=$2
@@ -6,18 +6,16 @@ output=$3
 name=$4
 pkgver=$5
 pkgname=$6
-tmpDir=/tmp/debian-package
+tmpDir=$(mktemp -d)
 
 if [ "$prefix" != "/usr" ]; then
     echo "Sorry, $prefix as prefix is not supported yet in wine-tkg packaging for Debian on Arch"
-    exit
+    rm -rf "$tmpDir"
+    exit 1
 fi
 
 lib32name="lib32"
 lib64name="lib"
-
-rm -rf "$tmpDir" || true
-mkdir "$tmpDir"
 
 echo "2.0" >"$tmpDir"/debian-binary
 
@@ -40,7 +38,7 @@ cp -r "$files"/usr/lib64_/* "$files"/usr/lib/x86_64-linux-gnu && rm -r "$files"/
 rm -r "$files"/usr/lib32_
 rm -r "$files"/usr/lib64_
 
-tar --exclude='.[^/]*' -czf $tmpDir/data.tar.gz -C "$files" ./ >>/dev/null
+tar --exclude='.[^/]*' -czf "$tmpDir"/data.tar.gz -C "$files" ./ >/dev/null 2>&1
 
 mkdir "$files"/usr/lib64_
 mkdir "$files"/usr/lib32_
@@ -72,12 +70,12 @@ Depends: libc6 (>= 2.17), libfontconfig1 (>= 2.11), libfreetype6 (>= 2.2.1), lib
 Installed-Size: $(du -sb "${files}" | awk '{printf "%1.0f\n",$1/1024}')
 Description: wine-tkg build - Wine to rule them all
 EOL
-tar czf "$tmpDir"/control.tar.gz -C "$tmpDir"/control ./ >>/dev/null
+tar czf "$tmpDir"/control.tar.gz -C "$tmpDir"/control ./ >/dev/null 2>&1
 rm -r "$tmpDir"/control
 
 prev=$PWD
 cd "$tmpDir"
-ar -r "$name" debian-binary control.tar.gz data.tar.gz &>/dev/null
+ar -r "$name" debian-binary control.tar.gz data.tar.gz >/dev/null 2>&1
 cp "$name" "$output"
 cd "$prev"
 

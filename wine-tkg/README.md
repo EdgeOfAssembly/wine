@@ -34,24 +34,24 @@ From the `wine-tkg` directory:
 - `non-makepkg-build.sh` — Build script for non-Arch distros
 - `wine.install` — Post-install hooks
 - `wine-tkg-patches/` — Patch sets:
-  - `misc/` — Miscellaneous improvements (CSMT toggle, Josh flat theme, etc.)
-  - `proton/` — Proton-derived patches (BattlEye, EAC, fullscreen hack, etc.)
-  - `proton-tkg-specific/` — Proton-TkG specific patches
-  - `game-specific/` — Game-specific fixes
-  - `hotfixes/` — Hotfixes for known regressions
+  - `misc/` — Miscellaneous config files (`30-win32-aliases.conf`, `wine-binfmt.conf`)
 - `wine-tkg-profiles/` — Build profiles and advanced configuration
-- `wine-tkg-scripts/` — Build helper scripts
+- `wine-tkg-scripts/` — Build helper scripts (`build-32.sh`, `build-64.sh`, `Makefile.single`, launchers, `package-debian.sh`)
 - `wine-tkg-userpatches/` — Directory for user-supplied patches
 
-## Key Features Available
+## Key Features Available via Configuration
 
-- Wine-Staging patchset support
-- NTsync / fsync / esync synchronization primitives
-- Proton compatibility patches (BattlEye, EAC bridge, fullscreen hack)
-- CSMT toggle, Josh flat theme
-- Wayland driver support
-- Game-specific fixes (MK11, Assetto Corsa, etc.)
-- Debian package generation support
+The `customization.cfg` and `wine-tkg-profiles/advanced-customization.cfg` files
+expose toggles for the following features (most require a full wine-tkg clone with
+upstream `prepare.sh`/`build.sh` to build):
+
+- Wine-Staging patchset support (`_use_staging`)
+- NTsync / fsync / esync synchronization primitives (`_use_ntsync`, `_use_fsync`, `_use_esync`)
+- Proton compatibility patches: BattlEye/EAC bridge, fullscreen hack, rawinput (`_proton_battleye_support`, `_proton_eac_support`, `_proton_fs_hack`)
+- CSMT toggle (`_CSMT_toggle`)
+- Wayland driver support (`_wayland_driver`)
+- Game-specific fixes: MK11, Assetto Corsa, etc.
+- Debian package generation (`_GENERATE_DEBIAN_PACKAGE`)
 
 ## License
 
