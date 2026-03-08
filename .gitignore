@@ -1,0 +1,33 @@
+# Wine build artifacts
+*.o
+*.so
+*.a
+*.la
+*.lo
+*.stamp
+/config.log
+/config.cache
+/config.status
+/Makefile
+autom4te.cache/
+
+# wine-tkg build artifacts
+wine-tkg/src/
+wine-tkg/non-makepkg-builds/
+wine-tkg/wine-git/
+wine-tkg/wine-staging-git/
+wine-tkg/wine-mirror-git/
+wine-tkg/wine-staging-mirror-git/
+wine-tkg/BIG_UGLY_FROGMINER
+wine-tkg/prepare.log
+wine-tkg/last_build_config.log
+wine-tkg/*.log
+wine-tkg/temp
+wine-tkg/wine-tkg-*.install
+wine-tkg/wine-tkg-userpatches/*.my*
+wine-tkg/.config/
+
+# Editor backup files
+*~
+*.orig
+*.bak

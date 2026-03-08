@@ -165,7 +165,7 @@ static UINT64 monitor_update_serial;
 static pthread_mutex_t display_lock = PTHREAD_MUTEX_INITIALIZER;
 
 static BOOL emulate_modelist = TRUE;
-static BOOL emulate_modeset = TRUE;
+static BOOL emulate_modeset;
 static UINT limit_resolutions = 0;
 BOOL decorated_mode = TRUE;
 UINT64 thunk_lock_callback = 0;

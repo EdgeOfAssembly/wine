@@ -11,6 +11,30 @@ Wine is free software, released under the GNU LGPL; see the file
 LICENSE for the details.
 
 
+## EdgeOfAssembly Wine Fork
+
+This repository is a fork of Wine with the following improvements integrated
+from [EdgeOfAssembly/wine-tkg](https://github.com/EdgeOfAssembly/wine-tkg)
+and [EdgeOfAssembly/wine-tkg-git](https://github.com/EdgeOfAssembly/wine-tkg-git):
+
+**From wine-tkg (source improvements):**
+- **EmulateModeset disabled by default** (`dlls/win32u/sysparams.c`): Improves
+  gaming performance. Previously this was enabled by default, causing performance
+  regressions in some games. Can be re-enabled via the `EmulateModeset=Y` registry
+  key (`HKCU\Software\Wine\X11 Driver`).
+- Font license files: `COPYING.arial`, `COPYING.cour`, `COPYING.times`, `COPYING.msyh`
+  for Liberation and WenQuanYi font families.
+- **esync** support (eventfd-based synchronization): Enable with `WINEESYNC=1`.
+  See `README.esync` for details.
+
+**From wine-tkg-git (build infrastructure):**
+- `wine-tkg/` directory: Complete wine-tkg build system for custom Wine builds.
+  Includes PKGBUILD (Arch Linux), non-makepkg build script, patches, profiles,
+  and configuration. See [`wine-tkg/README.md`](wine-tkg/README.md).
+- `wine-tkg-config.txt`: Build configuration reference.
+- `.gitignore`: Source tree gitignore for Wine and wine-tkg build artifacts.
+
+
 ## QUICK START
 
 From the top-level directory of the Wine source (which contains this file),

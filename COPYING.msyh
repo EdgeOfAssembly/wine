@@ -1,0 +1,19 @@
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+This file contains the license for the Wen Quan Yi Micro Hei / WenQuanYi
+Zen Hei (msyh.ttc) font used in this Wine build.
+
+The WenQuanYi font family is distributed under the GNU General Public
+License version 3 (GPL v3) with a font exception that allows the font to
+be used freely in documents without requiring the document itself to be GPL.
+
+For the complete GNU General Public License v3, see:
+https://www.gnu.org/licenses/gpl-3.0.html
+
+For more information about the WenQuanYi fonts, see:
+http://wenq.org/wqy2/

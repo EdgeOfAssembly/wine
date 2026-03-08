@@ -1,0 +1,24 @@
+# Wine-TkG configuration reference
+# This file documents the build configuration and patches used in this Wine fork.
+# Generated from wine-tkg build infrastructure (EdgeOfAssembly/wine-tkg-git).
+
+# Wine source: EdgeOfAssembly/wine (based on Wine 10.0)
+# Build system: wine-tkg (see wine-tkg/ directory)
+
+## Applied source patches:
+# - esync (eventfd-based synchronization) - enabled with WINEESYNC=1
+
+## Performance improvements:
+# - EmulateModeset disabled by default (reduces performance regressions in some games)
+#   Can be re-enabled via EmulateModeset=Y in HKCU\Software\Wine\X11 Driver registry key
+
+## Build profiles available (see wine-tkg/wine-tkg-profiles/):
+# - customization.cfg: Basic build options (staging, ntsync, esync, fsync, game patches)
+# - advanced-customization.cfg: Compiler flags, packaging, expert options
+# - wine-tkg-mainline.cfg: Clean mainline Wine build
+# - wine-tkg-staging.cfg: Wine with staging patchset
+# - wine-tkg-protonified.cfg: Wine with Proton-derived patches
+
+## Reference build system:
+# https://github.com/Frogging-Family/wine-tkg-git
+# https://github.com/EdgeOfAssembly/wine-tkg-git
